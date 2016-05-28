@@ -1,0 +1,23 @@
+{
+  "name": "dishy-service",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Daniel Shamama & Noam Roiz",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "jade": "^0.34.1",
+    "mongodb": "^1.3.23",
+    "mongoose": "^4.4.19",
+    "passport": "0.3.2",
+    "passport-google-oauth2": "0.1.6"
+  }
+}
