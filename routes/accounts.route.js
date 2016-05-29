@@ -24,6 +24,13 @@ function respond(req, res) {
   });
 }
 
+function serialize(req, res, next) {  
+  req.user = {
+      id: user.id
+    };
+    next();
+}
+
 module.exports = function(app){
     app.get('/newAccount', utils.loggedIn, function(req, res, next){
         Account.findById(req.session.passport.user, function(err, user) {
@@ -43,13 +50,20 @@ module.exports = function(app){
             }
         });
     });
-    
-    app.post('/auth/google', passport.authenticate('google', { 
+
+    app.post('/auth', passport.authenticate('google', { 
         scope: [
             'https://www.googleapis.com/auth/plus.login',
             'https://www.googleapis.com/auth/plus.profile.emails.read'
         ]}
     ), serialize, generateToken, respond);
+    
+    app.get('/auth/google', passport.authenticate('google', { 
+        scope: [
+            'https://www.googleapis.com/auth/plus.login',
+            'https://www.googleapis.com/auth/plus.profile.emails.read'
+        ]}
+    ));
 
     app.get('/auth/google/callback',
       passport.authenticate('google', { failureRedirect: '/' }),
