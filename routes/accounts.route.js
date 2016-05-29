@@ -8,21 +8,15 @@ var urlencodedParser    = bodyParser.urlencoded({ extended: false });
 var jsonParser          = bodyParser.json();
 
 module.exports = function(app){
-    app.get('/newAccount', utils.loggedIn, function(req, res, next){
+    app.get('/newAccount', function(req, res, next){
         Account.findById(req.session.passport.user, function(err, user) {
             if(err) {
                 console.log(err);
             } else {
-                console.log('new account');
                 req.logIn(req.user, function(err) {
-                    if (err) {
-                        return next(err);
-                    }
-                    //delete private data from user before sending
-                    // res.json(200, user);
-                    res.render('account', { user: req.user });
+                    if (err) return next(err);
+                    res.render('account', { key: req.user.id });
                 });
-                //res.render('account', { user: req.user });
             }
         });
     });
@@ -39,14 +33,14 @@ module.exports = function(app){
         res.redirect('/newAccount');
       });
 
-    app.get('/logout', utils.loggedIn, function(req, res){
+    app.get('/logout', utils.ensureAuth, function(req, res){
         console.log('logout from ' + req.user.displayName);
-      req.logout();
-      res.redirect('/');
+        req.logout();
+        res.redirect('/');
     });
 
     //when auth works - delete the key
-    app.get('/getAccountInfo/:key', function(req, res){
+    app.get('/getAccountInfo/:key', utils.ensureAuth, function(req, res){
         // accountsApi.getAccountInfo(req.user._id, function(err,data){
         accountsApi.getAccountInfo(req.params.key, function(err,data){
             if(err) return res.sendStatus(400);
@@ -56,7 +50,7 @@ module.exports = function(app){
     });
 
     //auth error!!!!
-    app.put('/createBusiness', jsonParser, function(req, res){
+    app.put('/createBusiness', utils.ensureAuth, jsonParser, function(req, res){
         accountsApi.createBusiness(req.body.key, req.body, function(err,data){
             if(err) return res.sendStatus(400);
             res.send(data);
@@ -65,7 +59,7 @@ module.exports = function(app){
     });
 
     //auth error!!!!
-    app.put('/popAccountExp', jsonParser, function(req, res){
+    app.put('/popAccountExp', utils.ensureAuth, jsonParser, function(req, res){
         console.log(req.body);
         accountsApi.popAccountExp(req.body.key, function(err,data){
             if(err) return res.sendStatus(400);

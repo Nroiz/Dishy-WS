@@ -1,4 +1,6 @@
 'use strict';
+var Account         = require('../models/account.js');
+
 module.exports.loggedIn = function(req, res, next) {
    console.log(req.isAuthenticated());
     if (req.user) {
@@ -7,20 +9,24 @@ module.exports.loggedIn = function(req, res, next) {
     } else {
         res.status(401);
         res.send('authentication problem - you need to login first');
-        //res.redirect('/auth/google');
     }
 };
 
-module.exports.ensureAuth = function(req, res) {
+module.exports.ensureAuth = function(req, res, next) {
+  console.log(req.headers.authorization);
   if (!req.headers.authorization) {
     res.json({ error: 'No credentials sent!' });
   } else {
     var encoded = req.headers.authorization.split(' ')[1];
     var decoded = new Buffer(encoded, 'base64').toString('utf8');
  
-    res.json({
-      id: decoded.split(':')[0],
-      secret: decoded.split(':')[1],
+    Account.findOne({ _id: encoded }, function(err, account) {
+          if(err) {
+            console.log(err);  // handle errors!
+          }
+          if (!err && account !== null) {
+              next();
+          } 
     });
   }
 }

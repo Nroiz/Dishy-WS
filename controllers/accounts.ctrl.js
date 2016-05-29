@@ -6,8 +6,8 @@ var Business        = require('../models/business.js');
 
 module.exports.auth = function(passport){
     passport.serializeUser(function(user, done) {
-      console.log('serializeUser: ' + user._id);
-      done(null, user._id);
+      console.log('serializeUser: ' + user.id);
+      done(null, user.id);
     });
 
     passport.deserializeUser(function(id, done) {
@@ -31,6 +31,7 @@ module.exports.auth = function(passport){
               console.log('user exist')
             done(null, account);
           } else {
+            
             account = new Account({
                 oauthID: profile.id,
                 displayName: profile.displayName,
