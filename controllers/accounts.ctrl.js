@@ -29,7 +29,7 @@ module.exports.auth = function(passport){
           return done(null, user);
         }
       }
-    ));
+    )));
 
     passport.use(new GoogleStrategy({
       clientID: config.google.clientID,
