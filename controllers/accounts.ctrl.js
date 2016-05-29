@@ -20,16 +20,18 @@ module.exports.auth = function(passport){
     passport.use(new BasicStrategy(
       function(id, secret, done) {
         // connect to database and query against id / secret
-        Account.find({ oauthID: id }, function(err, user) {
-          if (err) {
-            return done(err);
-          } else if (!user) {
-            return done(null, false);
-          }
-          return done(null, user);
+            Account.find({ oauthID: id }, function(err, user) {
+                  if (err) {
+                    return done(err);
+                  } else if (!user) {
+                    return done(null, false);
+                  }
+                  return done(null, user);
+                }
+            )
         }
-      }
-    )));
+        )
+    );
 
     passport.use(new GoogleStrategy({
       clientID: config.google.clientID,
