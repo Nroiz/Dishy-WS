@@ -17,7 +17,7 @@ module.exports.auth = function(passport){
         });
     });
 
-    passport.use(new BasicStrategy(
+    passport.use(new Strategy(
       function(id, secret, done) {
         // connect to database and query against id / secret
             Account.find({ oauthID: id }, function(err, user) {
