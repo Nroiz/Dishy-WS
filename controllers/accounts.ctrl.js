@@ -7,7 +7,11 @@ var Business        = require('../models/business.js');
 module.exports.auth = function(passport){
     passport.serializeUser(function(user, done) {
       console.log('serializeUser: ' + user._id);
-      done(null, user._id);
+      req.user = {
+          id: user.id
+        };
+        next();
+      // done(null, user._id);
     });
 
     passport.deserializeUser(function(id, done) {
