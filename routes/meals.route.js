@@ -19,7 +19,7 @@ module.exports = function(app){
 
     //upgrade - need to get amount of meals, 
     //          few meals each time (remember the last one)
-    app.get('/getAllMeals', passport.authenticate('google', { failureRedirect: '/' }), function(req, res){
+    app.get('/getAllMeals', utils.ensureAuth , function(req, res){
         mealsApi.getAllMeals(function(err,data){
             if(err) return res.sendStatus(400);
             res.send(data);
