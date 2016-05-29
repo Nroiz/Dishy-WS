@@ -11,6 +11,20 @@ module.exports.loggedIn = function(req, res, next) {
     }
 };
 
+module.exports.ensureAuth = function(req, res) {
+  if (!req.headers.authorization) {
+    res.json({ error: 'No credentials sent!' });
+  } else {
+    var encoded = req.headers.authorization.split(' ')[1];
+    var decoded = new Buffer(encoded, 'base64').toString('utf8');
+ 
+    res.json({
+      id: decoded.split(':')[0],
+      secret: decoded.split(':')[1],
+    });
+  }
+}
+
 module.exports.sortBy = (function () {
 
   //cached privated objects
