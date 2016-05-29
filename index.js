@@ -18,7 +18,7 @@ var conn            = mongoose.connection;
 app.use('/assets', express.static(__dirname + '/public'));
 app.use(session({ secret: 'keyboard cat' }));
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session()); //???
 app.set('view engine', 'jade');
 
 app.use(function (req, res, next) {

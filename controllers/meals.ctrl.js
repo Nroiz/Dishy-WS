@@ -126,7 +126,6 @@ class Meals{
                         data.context.rate);
             newReview = mongoose.model('Review', Review);
             reData = new newReview(data.context);
-            console.log(re);
             query = doc.update({
                $set: {
                    rate: avg
