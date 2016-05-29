@@ -24,7 +24,7 @@ app.set('view engine', 'jade');
 app.use(function (req, res, next) {
 
     // allowed websites to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8000');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
