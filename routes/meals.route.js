@@ -5,6 +5,7 @@ var mealsApi            = new MealsController();
 var jsonParser          = bodyParser.json();
 var urlencodedParser    = bodyParser.urlencoded({ extended: false });
 var utils               = require('../assets/utils.js');
+var passport            = require('passport');
 
 module.exports = function(app){
     app.post('/addMeal', jsonParser, function(req, res){
@@ -18,7 +19,7 @@ module.exports = function(app){
 
     //upgrade - need to get amount of meals, 
     //          few meals each time (remember the last one)
-    app.get('/getAllMeals', function(req, res){
+    app.get('/getAllMeals',passport.authenticate('basic', { session: false }), function(req, res){
         mealsApi.getAllMeals(function(err,data){
             if(err) return res.sendStatus(400);
             res.send(data);

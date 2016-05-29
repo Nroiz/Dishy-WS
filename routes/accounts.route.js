@@ -6,30 +6,6 @@ var AccountsCtrl        = require('../controllers/accounts.ctrl.js').api;
 var accountsApi         = new AccountsCtrl();
 var urlencodedParser    = bodyParser.urlencoded({ extended: false });
 var jsonParser          = bodyParser.json();
-var jwt             = require('jsonwebtoken');
-
-function generateToken(req, res, next) {  
-  req.token = jwt.sign({
-    id: req.user.id,
-  }, 'server secret', {
-    expiresInMinutes: 120
-  });
-  next();
-}
-
-function respond(req, res) {  
-  res.status(200).json({
-    user: req.user,
-    token: req.token
-  });
-}
-
-function serialize(req, res, next) {  
-  req.user = {
-      id: user.id
-    };
-    next();
-}
 
 module.exports = function(app){
     app.get('/newAccount', utils.loggedIn, function(req, res, next){
@@ -50,13 +26,6 @@ module.exports = function(app){
             }
         });
     });
-
-    app.post('/auth', passport.authenticate('google', { 
-        scope: [
-            'https://www.googleapis.com/auth/plus.login',
-            'https://www.googleapis.com/auth/plus.profile.emails.read'
-        ]}
-    ), serialize, generateToken, respond);
     
     app.get('/auth/google', passport.authenticate('google', { 
         scope: [
@@ -64,7 +33,6 @@ module.exports = function(app){
             'https://www.googleapis.com/auth/plus.profile.emails.read'
         ]}
     ));
-
     app.get('/auth/google/callback',
       passport.authenticate('google', { failureRedirect: '/' }),
       function(req, res) {
