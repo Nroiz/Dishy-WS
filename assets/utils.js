@@ -1,6 +1,12 @@
 'use strict';
 var Account         = require('../models/account.js');
 
+module.export.wsPath = 'http://fast-castle-79738.herokuapp.com/'; //heroku ws
+// module.export.wsPath = 'http://127.0.0.1:1337/'; //local ws
+
+module.export.clientPath = 'http://mighty-dusk-71375.herokuapp.com/'; //heroku client
+// module.export.clientPath = 'http://localhost:8000/'; //local client
+
 module.exports.loggedIn = function(req, res, next) {
    console.log(req.isAuthenticated());
     if (req.user) {

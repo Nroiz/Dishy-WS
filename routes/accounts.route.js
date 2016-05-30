@@ -15,7 +15,8 @@ module.exports = function(app){
             } else {
                 req.logIn(req.user, function(err) {
                     if (err) return next(err);
-                    res.render('account', { key: req.user.id });
+                    res.render('account', 
+                        { key: req.user.id, clientpath: utils.clientPath});
                 });
             }
         });
