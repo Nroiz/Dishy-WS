@@ -4,7 +4,7 @@ var Account         = require('../models/account.js');
 module.exports.wsPath = 'http://fast-castle-79738.herokuapp.com/'; //heroku ws
 // module.export.wsPath = 'http://127.0.0.1:1337/'; //local ws
 
-module.exports.clientPath = 'http://mighty-dusk-71375.herokuapp.com/'; //heroku client
+module.exports.clientPath = 'http://shenkar.html5-book.co.il/2015-2016/ws1/dev_180/'; //heroku client
 // module.export.clientPath = 'http://localhost:8000/'; //local client
 
 module.exports.loggedIn = function(req, res, next) {
