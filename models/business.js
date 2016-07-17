@@ -8,4 +8,4 @@ var Businss = new Schema({
     phone: {type:String, required:true}
 });
 
-module.exports = mongoose.model('Businss', Businss);
+module.exports = Businss;
