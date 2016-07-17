@@ -20,6 +20,7 @@ class Orders{
                 console.log(err);
                 return callback(err, null);
             }
+            console.log(meal.owner);
             newOrder = new Order({
                 product: orderDetails.pid,
                 date: Date.now(),//need to parse the date to more elegant string
@@ -52,6 +53,12 @@ class Orders{
                 return callback(err, null);
             }
             console.log('got data!');
+            utils.sortBy(orders, {
+                prop: "date",
+                parser: function (item) {
+                    return new Date(item);
+                }
+            });
             callback(null,orders);
             console.log('<<getBusinessOrders');
         });

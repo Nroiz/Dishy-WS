@@ -7,9 +7,10 @@ var Tag             = require('../models/tag.js');
 var updateAvg = function(current, amount, newVal){
     var avg = (parseInt(current) * parseInt(amount));
     avg += parseInt(newVal); 
-    avg /= parseInt(amount+1); 
+    avg /= parseInt(amount+1);
+    console.log(avg); 
     avg = avg.toFixed(1); 
-    return parseInt(avg);
+    return avg;
 }
 
 class Meals{
@@ -21,6 +22,7 @@ class Meals{
         var newMeal = new Meal({
             name: mealDetails.name,
             description: mealDetails.description,
+            img: mealDetails.img,
             price: mealDetails.price,
             owner: mealDetails.owner,
             tags: mealDetails.tags

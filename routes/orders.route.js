@@ -18,16 +18,11 @@ module.exports = function(app){
 
     //when auth works - delete the key
     app.get('/getBusinessOrders/:key', utils.ensureAuth, function(req, res){
-        if(req.user.type == 'business') {
-            ordersApi.getBusinessOrders(req.params.key, function(err,data){
-                if(err) return res.sendStatus(400);
-                res.send(data);
-                res.end();
-            });
-        } else {
-            res.status(401);
-            res.send('authentication problem - you don\'t have business premissions');
-        }
+        ordersApi.getBusinessOrders(req.params.key, function(err,data){
+            if(err) return res.sendStatus(400);
+            res.send(data);
+            res.end();
+        });
         
     });
 

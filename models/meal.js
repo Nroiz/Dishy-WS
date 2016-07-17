@@ -7,6 +7,7 @@ var customeSchema = new Schema({
 	name: {type:String,required:true, index:1},
 	description: {type:String, required:true},
     owner: {type:String},
+    img: {type: String},
 	price: {type:Number, required:true},
     lastOrder: {type:Date},//optional
     tags: [String],
