@@ -15,7 +15,7 @@ module.exports = function(app){
             } else {
                 req.logIn(req.user, function(err) {
                     if (err) return next(err);
-                    res.redirect(utils.clientPath + '#/explore/' + req.user.id);
+                    res.redirect(utils.clientPath + 'explore/' + req.user.id);
                 });
             }
         });
