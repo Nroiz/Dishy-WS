@@ -1,5 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
+var business = require('./business.js');
 var Schema   = mongoose.Schema;
 
 var Account = new Schema({
@@ -12,11 +13,7 @@ var Account = new Schema({
     created: {type:Date, required:true},
     type: {type:String, required:true},
     exp: {type:Number},
-    businessDetails: {
-        name: {type:String},
-        address: {type:String},
-        phone: {type:String}
-    }
+    businessDetails: business
 }, {collection : 'Accounts'});
 
 module.exports = mongoose.model('Account', Account);
